@@ -22,37 +22,45 @@ function App() {
 
     if (hour === "" && min === "") {
       alert("Please! Enter the Time");
+      return;
     } //
-    else {
-      arr.push({
-        alarmH: hour,
-        alarmM: min,
-        alarmAmPm: userampm,
-        status: true,
-      });
-
-      setAlarmT(arr);
-      document.getElementById("hour").value = "";
-      document.getElementById("min").value = "";
-
-      let ampm = new Date().getHours() <= 12 ? "AM" : "PM";
-
-      setInterval(() => {
-        for (let i = 0; i < alarmT.length; i++) {
-          if (
-            new Date().getHours() % 12 == alarmT[i].alarmH &&
-            new Date().getMinutes() % 60 == alarmT[i].alarmM &&
-            new Date().getSeconds() == 0 &&
-            alarmT[i].alarmAmPm == ampm &&
-            alarmT[i].status
-          ) {
-            audio.currentTime = 0;
-            audio.play();
-            setSnooze(true);
-          }
-        }
-      }, 1000);
+    if (hour >= 12) {
+      alert("Please! Enter Hours less than 12");
+      return;
+    } //
+    if (min >= 60) {
+      alert("Please! Enter Minute less than 60");
+      return;
     }
+
+    arr.push({
+      alarmH: hour,
+      alarmM: min,
+      alarmAmPm: userampm,
+      status: true,
+    });
+
+    setAlarmT(arr);
+    document.getElementById("hour").value = "";
+    document.getElementById("min").value = "";
+
+    let ampm = new Date().getHours() <= 12 ? "AM" : "PM";
+
+    setInterval(() => {
+      for (let i = 0; i < alarmT.length; i++) {
+        if (
+          new Date().getHours() % 12 == alarmT[i].alarmH &&
+          new Date().getMinutes() % 60 == alarmT[i].alarmM &&
+          new Date().getSeconds() == 0 &&
+          alarmT[i].alarmAmPm == ampm &&
+          alarmT[i].status
+        ) {
+          audio.currentTime = 0;
+          audio.play();
+          setSnooze(true);
+        }
+      }
+    }, 1000);
   }
 
   function snoozeAlarm() {
@@ -79,21 +87,22 @@ function App() {
     <>
       <div
         className="card mt-5 mx-auto p-1"
-        style={{
-          width: "25rem",
-          boxShadow:
-            "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-        }}
       >
         <img
           src={img}
-          className={`card-img-top py-4 ${(snooze)?"vibrate":""}`}
+          className={`card-img-top py-4 ${snooze ? "vibrate" : ""}`}
           style={{ width: "27.5%", margin: "auto" }}
           alt="Img not found"
         />
         <div className="card-body">
           <div className="card-text">
-            <h3 className="text-center text-danger pb-2">{time}</h3>
+            <h3 className="text-center text-danger pb-2">
+              {new Date().toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              })}
+            </h3>
             <hr />
             <div className="row pt-2">
               <div className="col-md-4 pl-5">
@@ -127,12 +136,10 @@ function App() {
               </div>
             </div>
           </div>
-          <table style={{width: "47%", margin: "auto"}} className="mt-4">
-            {/* <div className="row mt-4" style={{ width: "45%", margin: "auto" }}> */}
+          <table style={{ width: "47%", margin: "auto" }} className="mt-4">
             {alarmT.map(function (ele, index) {
               return (
                 <tr>
-                  {/* <div className="alarm-times" style={{ display: "flex" }}> */}
                   {ele.alarmH >= 0 ? (
                     <>
                       <td>{ele.alarmH}</td>
@@ -155,11 +162,9 @@ function App() {
                   ) : (
                     ""
                   )}
-                  {/* </div> */}
                 </tr>
               );
             })}
-            {/* </div> */}
           </table>
           <button
             id="set_alarm"
