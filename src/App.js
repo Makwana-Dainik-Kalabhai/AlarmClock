@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import "./App.css";
-import myAudio from "./music.mp3";
+import myAudio from "./ringtone.mp3";
 
 function App() {
   let [time, setTime] = useState(new Date().toLocaleTimeString());
@@ -10,6 +10,7 @@ function App() {
   let [snooze, setSnooze] = useState(false);
 
   const [audio, setAudio] = useState(new Audio(myAudio));
+  audio.loop = true;
 
   function setAlarm() {
     let arr = alarmT;
