@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import "./App.css";
+import img from "./clock.jpg";
 import myAudio from "./ringtone.mp3";
 
 function App() {
@@ -85,7 +86,7 @@ function App() {
         }}
       >
         <img
-          src="./clock.jpg"
+          src={img}
           className={`card-img-top py-4 ${(snooze)?"vibrate":""}`}
           style={{ width: "27.5%", margin: "auto" }}
           alt="Img not found"
