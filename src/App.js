@@ -58,6 +58,11 @@ function App() {
           audio.currentTime = 0;
           audio.play();
           setSnooze(true);
+
+          setTimeout(() => {
+            audio.pause();
+            setSnooze(false);
+          }, 120000);
         }
       }
     }, 1000);
@@ -85,9 +90,7 @@ function App() {
 
   return (
     <>
-      <div
-        className="card mt-5 mx-auto p-1"
-      >
+      <div className="card mt-5 mx-auto p-1">
         <img
           src={img}
           className={`card-img-top py-4 ${snooze ? "vibrate" : ""}`}
