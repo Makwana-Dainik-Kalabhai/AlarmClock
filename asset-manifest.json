@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/AlarmClock/static/css/main.ee7a0f03.css",
-    "main.js": "/AlarmClock/static/js/main.d146eb3f.js",
+    "main.js": "/AlarmClock/static/js/main.abfe4d28.js",
     "static/js/453.93148315.chunk.js": "/AlarmClock/static/js/453.93148315.chunk.js",
     "static/media/ringtone.mp3": "/AlarmClock/static/media/ringtone.dac268e3091c427ebe02.mp3",
     "static/media/clock.jpg": "/AlarmClock/static/media/clock.580e12ac130468fbb660.jpg",
     "index.html": "/AlarmClock/index.html",
     "main.ee7a0f03.css.map": "/AlarmClock/static/css/main.ee7a0f03.css.map",
-    "main.d146eb3f.js.map": "/AlarmClock/static/js/main.d146eb3f.js.map",
+    "main.abfe4d28.js.map": "/AlarmClock/static/js/main.abfe4d28.js.map",
     "453.93148315.chunk.js.map": "/AlarmClock/static/js/453.93148315.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ee7a0f03.css",
-    "static/js/main.d146eb3f.js"
+    "static/js/main.abfe4d28.js"
   ]
 }
