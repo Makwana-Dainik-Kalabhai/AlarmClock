@@ -29,7 +29,7 @@
     }
 }
 
-@media all and (max-width: 500px) {
+@media (max-width: 500px) {
     .card {
         width: 100% !important;
         height: 100vh;

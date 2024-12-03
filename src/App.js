@@ -1,9 +1,11 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import "./App.css";
 import img from "./clock.jpg";
 import myAudio from "./ringtone.mp3";
 
 function App() {
+  let isAppend = false;
+
   let [time, setTime] = useState(new Date().toLocaleTimeString());
   let [alarmT, setAlarmT] = useState([
     { alarmH: -1, alarmM: -1, alarmAmPm: "", status: true },
@@ -13,23 +15,43 @@ function App() {
   const [audio, setAudio] = useState(new Audio(myAudio));
   audio.loop = true;
 
+  useEffect(() => {
+    if (!isAppend) {
+      for (let i = 0; i < 12; i++) {
+        var option = document.createElement("option");
+        if (i < 10) {
+          option.text = "0" + i;
+          option.value = "0" + i;
+        } else {
+          option.text = i;
+          option.value = i;
+        }
+        document.getElementById("hour").appendChild(option);
+      }
+      for (let i = 0; i < 60; i++) {
+        var option = document.createElement("option");
+        if (i < 10) {
+          option.text = "0" + i;
+          option.value = "0" + i;
+        } else {
+          option.text = i;
+          option.value = i;
+        }
+        document.getElementById("minute").appendChild(option);
+      }
+      isAppend = true;
+    }
+  }, []);
+
   function setAlarm() {
     let arr = alarmT;
 
-    let hour = document.getElementById("hour").value;
-    let min = document.getElementById("min").value;
+    let hour = parseInt(document.getElementById("hour").value);
+    let min = parseInt(document.getElementById("minute").value);
     let userampm = document.getElementById("ampm").value;
 
-    if (hour === "" && min === "") {
-      alert("Please! Enter the Time");
-      return;
-    } //
-    if (hour >= 12) {
-      alert("Please! Enter Hours less than 12");
-      return;
-    } //
-    if (min >= 60) {
-      alert("Please! Enter Minute less than 60");
+    if (!(hour >= 0 && hour < 12) || !(min >= 0 && min < 60)) {
+      alert("Please! Select Valid Time");
       return;
     }
 
@@ -41,8 +63,8 @@ function App() {
     });
 
     setAlarmT(arr);
-    document.getElementById("hour").value = "";
-    document.getElementById("min").value = "";
+    document.getElementById("hour").value = "Hours";
+    document.getElementById("minute").value = "Minutes";
 
     let ampm = new Date().getHours() <= 12 ? "AM" : "PM";
 
@@ -108,31 +130,20 @@ function App() {
             </h3>
             <hr />
             <div className="row pt-2">
-              <div className="col-md-4 pl-5">
-                <h5>Hour</h5>
-                <input
-                  type="number"
-                  className="form-control"
-                  id="hour"
-                  placeholder="00"
-                  min="00"
-                  max="12"
-                />
-              </div>
               <div className="col-md-4">
-                <h5>Minute</h5>
-                <input
-                  type="number"
-                  className="form-control"
-                  id="min"
-                  placeholder="00"
-                  min="00"
-                  max="59"
-                />
+                <select className="form-select p-2" id="hour">
+                  <option value="Hours">Hours</option>
+                </select>
               </div>
+
               <div className="col-md-4">
-                <h5>AM/PM</h5>
-                <select className="form-select" id="ampm">
+                <select className="form-select p-2" id="minute">
+                  <option value="Minutes">Minutes</option>
+                </select>
+              </div>
+
+              <div className="col-md-4">
+                <select className="form-select p-2" id="ampm">
                   <option value="AM">AM</option>
                   <option value="PM">PM</option>
                 </select>
